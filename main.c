@@ -44,9 +44,48 @@ int addActors(Actor actors[MAX_ACTORS]) {
 }
 
 int addMovies(Movie movies[MAX_MOVIES]) {
-    //TODO: Solicitar el título, año de lanzamiento y director de la película y añadirlo al arreglo. Tened en cuenta que
-    // también se ha de solicitar el id de los actores que participen en dicha película. Se deberá en todo momento, preguntar si se desean añadir nuevos actores y/o películas.
-    // Se devuelve la cantidad de películas entrados al arreglo.
+    int num_movies = 0;
+    char continue_adding = 'y';
+    
+    while (continue_adding == 'y' || continue_adding == 'Y') {
+        if (num_movies < MAX_MOVIES) {
+            printf("Enter movie title: ");
+            scanf("%s", movies[num_movies].title);
+            
+            printf("Enter release year: ");
+            scanf("%d", &movies[num_movies].year);
+            
+            printf("Enter director name: ");
+            scanf("%s", movies[num_movies].director);
+            
+            // Initialize number of actors for this movie
+            movies[num_movies].nb_actors = 0;
+            
+            // Add actors to the movie
+            char add_actor = 'y';
+            while ((add_actor == 'y' || add_actor == 'Y') && movies[num_movies].nb_actors < MAX_ACTORS) {
+                int actor_id;
+                printf("Enter actor ID: ");
+                scanf("%d", &actor_id);
+                
+                movies[num_movies].actors_ids[movies[num_movies].nb_actors] = actor_id;
+                movies[num_movies].nb_actors++;
+                
+                printf("Do you want to add another actor to this movie? (y/n): ");
+                scanf(" %c", &add_actor);
+            }
+            
+            num_movies++;
+            
+            printf("Do you want to add another movie? (y/n): ");
+            scanf(" %c", &continue_adding);
+        } else {
+            printf("Maximum number of movies reached!\n");
+            continue_adding = 'n';
+        }
+    }
+    
+    return num_movies;
 }
 
 int getIdByName(Actor actors[], int num_actors, char name[]){
