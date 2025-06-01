@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
 
 #define MAX_TXT 80
 #define MAX_ACTORS 100
