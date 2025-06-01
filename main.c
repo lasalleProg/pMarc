@@ -157,7 +157,24 @@ void reportActorsByDirector(Movie movies[], int num_movies, Actor actors[], int 
 }
 
 int deleteMovieByYear(Movie movies[], int num_movies) {
-    //TODO: Se ha de solicitar el año de la película que se desea eliminar, encontrarlas y quitarlas del arreglo
+    int year;
+    printf("Enter year to delete movies from: ");
+    scanf("%d", &year);
+    
+    int i = 0;
+    while (i < num_movies) {
+        if (movies[i].year == year) {
+            // Shift remaining movies to fill the gap
+            for (int j = i; j < num_movies - 1; j++) {
+                movies[j] = movies[j + 1];
+            }
+            num_movies--;
+        } else {
+            i++;
+        }
+    }
+    
+    return num_movies;
 }
 
 void reportCurrentMovies(Movie movies[], int num_movies) {
